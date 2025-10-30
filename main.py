@@ -1,4 +1,3 @@
-# main.py
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from typing import List, Optional
@@ -11,19 +10,19 @@ class Item(BaseModel):
     preis: float = Field(..., ge=0)
     beschreibung: Optional[str] = None
 
-# "Persistenz" im Speicher (Oberste Ebene der Datei)
+# 
 ARTIKEL_SPEICHER: List[Item] = []
 
 @app.get("/")
 async def startseite():
-    return {"nachricht": "Willkommen zur FastAPI-Anwendung!"}
+    return {"nachricht": "Willkommen"}
 
 # Alle Artikel abrufen
 @app.get("/artikel/", response_model=List[Item])
 async def artikel_liste():
     return ARTIKEL_SPEICHER
 
-# Artikel an Liste anhängen
+# Artikel esrtellen
 @app.post("/artikel/", response_model=Item, status_code=201)
 async def artikel_erstellen(item: Item):
     # Pydantic prüft/konvertiert automatisch (z.B. "9.99" -> 9.99)
